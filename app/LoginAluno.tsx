@@ -5,7 +5,7 @@ import LoginAlunoComponent from "./Login Aluno/LoginAluno";
 export default function LoginAluno() {
     return (
         <View style={{ flex: 1}}>
-        <LoginAlunoComponent />
+        <LoginAlunoComponent/>
         </View>
     )
 }
