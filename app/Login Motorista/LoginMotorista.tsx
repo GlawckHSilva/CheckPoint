@@ -63,7 +63,6 @@ export default function LoginAluno() {
       <Image source={require('../../assets/images/Login.png')} style={styles.login} />
 
       {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
-      {'n*'}
       
       <TextInput
         style={styles.input}
