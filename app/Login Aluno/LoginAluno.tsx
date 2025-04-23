@@ -18,7 +18,6 @@ export default function LoginAluno() {
     'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
   });
 
-
   const validateEmail = (value: string) => {
     setEmail(value);
     const emailRegex = /\S+@\S+\.\S+/;
@@ -32,7 +31,7 @@ export default function LoginAluno() {
   const validateSenha = (value: string) => {
     setSenha(value);
     if (value.length < 4) {
-      setSenhaError('Senha incorreta');
+      setSenhaError('Senha deve ter pelo menos 4 caracteres');
     } else {
       setSenhaError('');
     }
@@ -42,7 +41,8 @@ export default function LoginAluno() {
     if (emailError || senhaError || !email || !senha) {
       Alert.alert("Erro", "Verifique os campos antes de continuar.");
     } else {
-       router.push('./Leitor/LeitorQR');
+      // Aqui você pode validar no backend, se necessário
+      router.push('/Leitor/LeitorQR'); // Caminho absoluto para evitar problemas
     }
   };
 
@@ -52,18 +52,15 @@ export default function LoginAluno() {
 
   return (
     <View style={styles.container}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 50, marginLeft: 20 }}>
-            <Icon name="arrowleft" size={25} color="#F35C22" onPress={router.back} style={{ marginRight: 25 }}/>
-
-            <Text style={styles.title}>Login Aluno</Text>
-        </View>
-
-
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 50, marginLeft: 20 }}>
+        <Icon name="arrowleft" size={25} color="#F35C22" onPress={router.back} style={{ marginRight: 25 }} />
+        <Text style={styles.title}>Login Aluno</Text>
+      </View>
 
       <Image source={require('../../assets/images/Login.png')} style={styles.login} />
 
       {emailError ? <Text style={{ color: 'red' }}>{emailError}</Text> : null}
-      
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -73,7 +70,7 @@ export default function LoginAluno() {
         autoCapitalize="none"
       />
 
-        {senhaError ? <Text style={{ color: 'red' }}>{senhaError}</Text> : null}
+      {senhaError ? <Text style={{ color: 'red' }}>{senhaError}</Text> : null}
 
       <TextInput
         style={styles.input}
@@ -81,13 +78,15 @@ export default function LoginAluno() {
         secureTextEntry={true}
         onChangeText={validateSenha}
         value={senha}
-        placeholderTextColor="#fff" 
-        
+        placeholderTextColor="#fff"
       />
-     
 
-      <TouchableOpacity style={styles.botao} onPress={handleLogin}>
-        <Text style={{color:'#fff', fontSize:20}}>Entrar</Text>
+      <TouchableOpacity
+        style={styles.botao}
+        onPress={handleLogin}
+        disabled={!!emailError || !!senhaError || !email || !senha} // Desabilitar botão se houver erro
+      >
+        <Text style={{ color: '#fff', fontSize: 20 }}>Entrar</Text>
       </TouchableOpacity>
     </View>
   );
